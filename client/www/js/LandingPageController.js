@@ -75,11 +75,10 @@
   =            Landing Page Socket Listeners            =
   =====================================================*/
 	  socket.on('addUser', function(){
-  		
 	  	$scope.show($ionicLoading);
 	  	Testing.getProcessEnvironment().then(function(response){
 	  		$rootScope.environment = response.data;
-	  		console.log(response.data, 'data')
+	  		
 		  	if($rootScope.environment.TESTING) {
 		  		console.log(response.data)
 		  		$rootScope.location = {

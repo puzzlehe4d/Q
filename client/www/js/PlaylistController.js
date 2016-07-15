@@ -1,9 +1,11 @@
 (function() {
   angular.module("Q")
-  .controller('PlaylistController', function($scope, $rootScope, $location, Playlist, Rooms, User, $state, $ionicPopup, $stateParams, $window) {
+  .controller('PlaylistController', function($scope, $rootScope, $location, Playlist, Rooms, User, $state, $ionicPopup, $ionicLoading, $stateParams, $window) {
     // rootScope variables made available to all controllers
     $rootScope.isUserAHost; 
     $rootScope.listenerCount;
+    $rootScope.songs = [];
+    $scope.searched = false;
     $rootScope.votesToSkip;
     $rootScope.roomName = $stateParams.roomName;
     $rootScope.room_name = $rootScope.roomName.split('_').join(' ');
@@ -14,7 +16,17 @@
       $state.go('landing');
     }
 
-    
+    $scope.show = function() {
+      $ionicLoading.show({
+        template: '<ion-spinner icon="lines"></ion-spinner> <br> Searching...',
+        animation: 'fade-in'
+      });
+    };
+
+    $scope.hide = function(){
+      $ionicLoading.hide();
+    };
+
     // when playlistController is initialized, we must check if that user is a host of the room
     User.isUserAHost($rootScope.roomName, socket.id).then(function(isHost) {
       console.log('is user the host?', isHost)
@@ -29,7 +41,8 @@
 
     //search song function (soundcloud)
     $scope.searchSong = function (){
-      $rootScope.songs= [];
+      $rootScope.songs = [];
+      $scope.show($ionicLoading);
       if($scope.query === '') {
         return;
       } else {
@@ -52,6 +65,8 @@
               $rootScope.songs.push(track);
             });         
           }
+          $scope.hide($ionicLoading);
+          $scope.searched = true;
         });
       }    
     }
@@ -67,6 +82,7 @@
     $scope.clearResults = function (){
       $scope.query = '';
       $rootScope.songs = [];
+      $scope.searched = false;
     }
 
     // used for templating (ng-show) to serve host or guest template

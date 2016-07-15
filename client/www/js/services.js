@@ -15,8 +15,10 @@ angular.module('Q.services', [
     });
     return SC.get('/tracks', {
       q: query,
+      linked_partioning: 1,
+      limit: 200
     }).then(function(tracks) {
-
+      console.log(tracks)
       return tracks;
     });
   }

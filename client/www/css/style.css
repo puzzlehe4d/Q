@@ -1,3 +1,13 @@
+body {
+  background-image: url(http://ppcdn.500px.org/75319705/1991f76c0c6a91ae1d23eb94ac5c7a9f7e79c480/2048.jpg) ;
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
+  background-color: #999;
+  margin: 0;
+  padding: 0;
+}
 /* Empty. Add your own CSS if you like */
 #landinginfo {
   padding-top:20px;
@@ -102,12 +112,27 @@ div.center{
   overflow: hidden;
   float: left;
 }
+.searchDetail {
+  padding: 3px;
+  height: 75px;
+  color: white;
+  padding: 25px;
+  font-size: 20px;
+}
+
+.cancel {
+  float: right;
+}
+
 
 .searchResults{
   position: absolute;
-  top: 4rem;
+  top: 1.5rem;
   z-index:10;
+  margin-left: auto;
+  margin-right: auto;
   height: 100vh;
+  width:100vw;
   background-color: #272b2b;
   opacity:.98;
 }
